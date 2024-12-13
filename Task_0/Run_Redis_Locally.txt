@@ -1,0 +1,121 @@
+Run Redis Locally:
+Install Redis for your platform or use Docker: redis-server (if installed locally).
+By default, Redis runs on localhost:6379.
+
+Redis requires Linux system or Docker, 
+
+Configure Redis via Docker with the following commands:-
+
+2. Pull the Redis Docker Image
+To run Redis using Docker, you first need to pull the Redis image from Docker Hub. Run the following command in your terminal (PowerShell, WSL, or any terminal):
+
+docker pull redis
+
+
+3. Run Redis in Docker
+Once the Redis image is pulled, you can start a Redis container. Use the following command:
+
+docker run --name redis -p 6379:6379 -d redis
+
+4. Verify Redis is Running
+To check if Redis is running, use:
+
+docker ps
+This will show a list of all running containers. You should see the Redis container listed.
+
+You can also check Redis’s logs to confirm it started successfully:
+
+
+docker logs redis
+
+5. Access Redis (Optional)
+You can interact with Redis inside the Docker container using the redis-cli. To run Redis CLI in the container, use:
+
+docker exec -it redis redis-cli
+This will open an interactive session with Redis. You can then test Redis commands like PING:
+
+
+127.0.0.1:6379> PING
+PONG
+
+6. Stop the Redis Container
+To stop the running Redis container, you can use:
+
+
+docker stop redis
+This will stop the container but leave it in a stopped state, which you can start again later.
+
+7. Remove the Redis Container (Optional)
+If you want to remove the Redis container completely, use:
+
+
+docker rm redis
+If you want to remove the Redis container and the image, you can run:
+
+
+docker rm redis
+docker rmi redis
+
+
+WSL can be installed on Windows via WSL using the following steps:-
+
+1. Enable WSL
+Open PowerShell as an administrator.
+
+Run the following command to enable the WSL feature:
+
+wsl --install
+
+This command:
+
+Installs WSL.
+Installs the latest version of the Linux kernel.
+Installs a default Linux distribution (usually Ubuntu).
+If this command fails or gives an error, you may need to manually enable the features:
+
+powershell
+
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+Restart your computer if prompted.
+
+2. Install a Linux Distribution
+If you didn’t specify a distribution during the installation, the default is Ubuntu. To choose another:
+
+Open Microsoft Store and search for "Linux".
+Select a distribution, such as Ubuntu, Debian, Fedora, or Kali Linux, and click Install.
+3. Set Up Your Linux Distribution
+Open the installed Linux distribution from the Start Menu or type the distribution name (e.g., Ubuntu) in the Command Prompt or PowerShell.
+Set up a username and password for the Linux environment.
+4. Verify Installation
+Run the following in PowerShell to check your WSL version and installed distributions:
+
+powershell
+
+wsl --list --verbose
+To use the latest version of WSL (WSL2), ensure the VERSION column says 2. If not, upgrade with:
+powershell
+
+wsl --set-version <distro-name> 2
+
+
+Then proceed to install Redis:-
+
+For Ubuntu/Debian
+
+sudo apt update
+sudo apt install redis
+
+For CentOS/RHEL
+
+sudo yum install redis
+
+For macOS (Using Homebrew)
+
+
+brew install redis
+
+Verifying the Installation
+After installation, you can start the Redis server and check its status:
+
+redis-server --version
