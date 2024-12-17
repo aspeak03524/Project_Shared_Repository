@@ -1,0 +1,6 @@
+- name: Pull a Docker image
+  docker_image:
+    name: nginx       # Replace with the name of the image you want to pull
+    source: pull      # This ensures the image is pulled from the registry
+    tag: latest       # You can specify the image tag, e.g., 'latest', '1.19', etc.
+    state: present    # Ensures the image is pulled if not present

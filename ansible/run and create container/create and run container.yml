@@ -1,0 +1,11 @@
+- name: Run a Docker container with specific port and environment variables
+  docker_container:
+    name: my_container           # Name of the container
+    image: nginx:latest          # Docker image to use (nginx in this case)
+    state: started               # Ensures the container is running
+    ports:
+      - "8080:80"                # Exposes port 8080 on the host to port 80 on the container
+    env:
+      - REDIS_HOST: "redis.internal"         # Define environmental variables
+     
+    restart_policy: unless-stopped  # Restart the container unless stopped manually

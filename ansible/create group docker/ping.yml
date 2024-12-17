@@ -1,0 +1,20 @@
+---
+- name: Create a group and grant root access
+  hosts: all
+  become: yes
+  tasks:
+    - name: Create the group
+      group:
+        name: "{{ group_name }}"
+        state: present
+
+    - name: Grant root access to the group in sudoers file
+      lineinfile:
+        path: "/etc/sudoers"
+        state: present
+        line: "%{{ group_name }} ALL=(ALL) NOPASSWD:ALL"
+        validate: "/usr/sbin/visudo -cf %s"
+
+    - name: Verify the group and sudoers entry
+      debug:
+        msg: "Group {{ group_name }} has been granted root access."
