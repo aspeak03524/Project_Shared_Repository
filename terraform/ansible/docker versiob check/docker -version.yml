@@ -1,0 +1,7 @@
+---
+- name: Check Docker version
+  command: docker --version
+  register: docker_version
+  ignore_errors: yes
+
+...

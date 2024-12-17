@@ -1,0 +1,27 @@
+- name: Deploy and Run Docker Compose File
+  hosts: all  # Replace with your target host or group
+  become: yes  # Ensure tasks are run with sudo privileges
+  tasks:
+    - name: Copy docker-compose.yml to remote server
+      copy:
+        src: docker-compose.yml  # Ensure this is the correct relative path
+        dest: /home/ubuntu/docker-compose.yml  # Destination on the remote host
+        mode: '0644' 
+        # copying the docker-compose.yml is not necessary if you have it on
+        # managed nodes already
+
+    - name: Run Docker Compose up
+      shell: |
+        docker-compose -f /home/ubuntu/docker-compose.yml up -d
+      args:
+        chdir: /home/ubuntu  # Change to the directory where docker-compose.yml is located
+        creates: /home/ubuntu/docker-compose.yml  # Only run if docker-compose.yml exists
+
+    - name: Verify containers are running
+      shell: docker ps
+      register: result
+      changed_when: false
+
+    - name: Display running Docker containers
+      debug:
+        msg: "{{ result.stdout }}"
